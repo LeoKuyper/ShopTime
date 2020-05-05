@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{AE16024B-59F6-4E2F-8DC4-D330DE5C356A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ShopTime/Models/Booking.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ShopTime/Controllers/BookingController.cs">
     <Files>
       <File FileName="ShopTime/Controllers/HomeController.cs" Line="25" Column="1" />
       <File FileName="ShopTime/Models/Booking.cs" Line="10" Column="45" />
@@ -7,16 +7,22 @@
       <File FileName="ShopTime/Startup.cs" Line="25" Column="101" />
       <File FileName="ShopTime/Data/MvcBookingContext.cs" Line="13" Column="52" />
       <File FileName="ShopTime/appsettings.json" Line="14" Column="1" />
+      <File FileName="ShopTime/Migrations/MvcBookingContextModelSnapshot.cs" Line="1" Column="1" />
+      <File FileName="ShopTime/Controllers/BookingController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ShopTime" expanded="True">
             <Node name="ShopTime" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="BookingController.cs" selected="True" />
+              </Node>
               <Node name="Data" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Booking.cs" selected="True" />
+              <Node name="Migrations" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True" />
               </Node>
             </Node>
           </Node>
