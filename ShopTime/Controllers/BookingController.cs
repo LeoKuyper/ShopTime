@@ -54,7 +54,7 @@ namespace ShopTime.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,UserId,StoreName,Location,LocationData,BookingTime")] Booking booking)
+        public async Task<IActionResult> Create([Bind("Id,UserId,ShopeId,ShopLocation,UserLocation,BookingTime,CurrentQueue")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ShopTime.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,UserId,StoreName,Location,LocationData,BookingTime")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,ShopeId,ShopLocation,UserLocation,BookingTime,CurrentQueue")] Booking booking)
         {
             if (id != booking.Id)
             {

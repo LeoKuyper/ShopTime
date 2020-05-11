@@ -25,20 +25,20 @@ namespace ShopTime.Migrations
                     b.Property<DateTime>("BookingTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Location")
+                    b.Property<int>("CurrentQueue")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShopLocation")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LocationData")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StoreName")
+                    b.Property<string>("ShopeId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserLocation")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

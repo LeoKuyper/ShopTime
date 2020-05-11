@@ -13,12 +13,12 @@ namespace ShopTime.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false),
-                    StoreName = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    LocationData = table.Column<string>(nullable: true),
-                    BookingTime = table.Column<DateTime>(nullable: false)
+                    ShopeId = table.Column<string>(nullable: true),
+                    ShopLocation = table.Column<string>(nullable: true),
+                    UserLocation = table.Column<string>(nullable: true),
+                    BookingTime = table.Column<DateTime>(nullable: false),
+                    CurrentQueue = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

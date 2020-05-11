@@ -1,28 +1,27 @@
-﻿<Properties StartupConfiguration="{AE16024B-59F6-4E2F-8DC4-D330DE5C356A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ShopTime/Controllers/BookingController.cs">
+﻿<Properties StartupConfiguration="{CEC83A7D-9AE8-4E8D-9998-6C27DB72C84D}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ShopTime/Views/Booking/Index.cshtml">
     <Files>
-      <File FileName="ShopTime/Controllers/HomeController.cs" Line="25" Column="1" />
-      <File FileName="ShopTime/Models/Booking.cs" Line="10" Column="45" />
-      <File FileName="ShopTime/Program.cs" Line="1" Column="1" />
-      <File FileName="ShopTime/Startup.cs" Line="25" Column="101" />
-      <File FileName="ShopTime/Data/MvcBookingContext.cs" Line="13" Column="52" />
-      <File FileName="ShopTime/appsettings.json" Line="14" Column="1" />
-      <File FileName="ShopTime/Migrations/MvcBookingContextModelSnapshot.cs" Line="1" Column="1" />
+      <File FileName="ShopTime/Models/Booking.cs" Line="15" Column="1" />
+      <File FileName="ShopTime/Startup.cs" Line="33" Column="66" />
+      <File FileName="ShopTime/Data/MvcBookingContext.cs" Line="17" Column="1" />
+      <File FileName="ShopTime/appsettings.json" Line="16" Column="1" />
       <File FileName="ShopTime/Controllers/BookingController.cs" Line="1" Column="1" />
+      <File FileName="ShopTime/Views/Booking/Create.cshtml" Line="1" Column="1" />
+      <File FileName="ShopTime/Views/Booking/Index.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ShopTime" expanded="True">
             <Node name="ShopTime" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="BookingController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
-              <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Home" expanded="True" />
+                <Node name="Booking" expanded="True">
+                  <Node name="Index.cshtml" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
