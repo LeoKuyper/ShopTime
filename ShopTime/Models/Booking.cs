@@ -13,5 +13,6 @@ namespace ShopTime.Models
         public DateTime BookingTime { get; set; }
         public int CurrentQueue { get; set; }
 
+
     }
 }

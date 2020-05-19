@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ShopTime.Data;
+using ShopTime.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ShopTime
 {
@@ -29,6 +31,9 @@ namespace ShopTime
 
             services.AddDbContext<MvcBookingContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcBookingContext")));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<MvcBookingContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +54,8 @@ namespace ShopTime
 
             app.UseRouting();
 
+            //Testing Authentication
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
