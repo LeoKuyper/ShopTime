@@ -14,7 +14,7 @@
         "outputPath": "/Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Volumes/Data 1/LeoData/.nuget/NuGet/NuGet.Config"
+          "/Volumes/Data 1/LeoData/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -53,6 +53,10 @@
               "version": "[3.1.4, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
               "target": "Package",
               "version": "[3.1.3, )"
             },

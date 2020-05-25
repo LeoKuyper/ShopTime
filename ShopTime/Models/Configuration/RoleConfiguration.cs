@@ -15,13 +15,13 @@ namespace ShopTime.Models.Configuration
             builder.HasData(
                  new IdentityRole
                  {
-                     Name = "User",
-                     NormalizedName = "USER"
+                     Name = "Visitor",
+                     NormalizedName = "VISITOR"
                  },
                  new IdentityRole
                  {
-                     Name = "Admin",
-                     NormalizedName = "ADMIN"
+                     Name = "Administrator",
+                     NormalizedName = "ADMINISTRATOR"
                  });
         }
     }
