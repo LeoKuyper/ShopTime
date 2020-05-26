@@ -313,3 +313,5 @@ F:/Leo Data/GitHub/ShopTime/ShopTime/obj/Debug/netcoreapp3.1/ShopTime.genruntime
 /Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/Debug/netcoreapp3.1/ShopTime.dll
 /Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/Debug/netcoreapp3.1/ShopTime.pdb
 /Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/Debug/netcoreapp3.1/ShopTime.genruntimeconfig.cache
+/Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/Debug/netcoreapp3.1/Razor/Views/Account/Register.cshtml.g.cs
+/Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_LoginPartial.cshtml.g.cs

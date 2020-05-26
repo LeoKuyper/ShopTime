@@ -13,10 +13,6 @@ namespace ShopTime.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
-        public bool PriorityUser { get; set; }
-        public string LivingLocation { get; set; }
-
         public Booking Bookings { get; set; }
     }
 }
