@@ -25,6 +25,7 @@ namespace ShopTime.Controllers
 
         public IActionResult Privacy()
         {
+            System.Diagnostics.Debug.WriteLine("Change view");
             return View();
         }
 

@@ -33,7 +33,11 @@ namespace ShopTime
                     Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+            })
                 .AddEntityFrameworkStores<MvcBookingContext>();
 
             services.AddControllersWithViews();

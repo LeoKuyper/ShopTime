@@ -22,6 +22,8 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\js\" />
+    <Folder Include="Views\css\" />
   </ItemGroup>
 
 </Project>

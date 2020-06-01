@@ -9,7 +9,7 @@ using ShopTime.Data;
 namespace ShopTime.Migrations
 {
     [DbContext(typeof(MvcBookingContext))]
-    [Migration("20200524193909_InitialCreate")]
+    [Migration("20200601203144_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,22 @@ namespace ShopTime.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "bd903daf-2168-40b2-a9b4-0be7e2679e47",
+                            ConcurrencyStamp = "55268e4d-0648-4e94-a855-7cbe89921244",
+                            Name = "Visitor",
+                            NormalizedName = "VISITOR"
+                        },
+                        new
+                        {
+                            Id = "7b4fc6cb-1d27-44d0-8ac4-9caf00152a6a",
+                            ConcurrencyStamp = "d9859eb8-800c-4b1b-814c-14001c51d737",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -153,11 +169,11 @@ namespace ShopTime.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("BookingState")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<DateTime>("BookingTime")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CurrentQueue")
-                        .HasColumnType("int");
 
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
@@ -165,9 +181,39 @@ namespace ShopTime.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ShopId");
+
+                    b.HasIndex("UserId1");
+
                     b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("ShopTime.Models.Shop", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActiveCashiers")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shop");
                 });
 
             modelBuilder.Entity("ShopTime.Models.User", b =>
@@ -178,15 +224,9 @@ namespace ShopTime.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BookingsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
@@ -199,9 +239,6 @@ namespace ShopTime.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("LivingLocation")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("LockoutEnabled")
@@ -227,9 +264,6 @@ namespace ShopTime.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<bool>("PriorityUser")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -241,8 +275,6 @@ namespace ShopTime.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookingsId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -305,11 +337,17 @@ namespace ShopTime.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ShopTime.Models.User", b =>
+            modelBuilder.Entity("ShopTime.Models.Booking", b =>
                 {
-                    b.HasOne("ShopTime.Models.Booking", "Bookings")
-                        .WithMany()
-                        .HasForeignKey("BookingsId");
+                    b.HasOne("ShopTime.Models.Shop", "Shop")
+                        .WithMany("Bookings")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShopTime.Models.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

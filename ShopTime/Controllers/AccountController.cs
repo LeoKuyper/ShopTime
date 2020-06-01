@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShopTime.Models;
 
@@ -10,88 +13,111 @@ namespace ShopTime.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        // GET: Account/Details/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(UserRegistrationModel  userModel)
+        public async Task<IActionResult> Register(UserRegistrationModel  userModel)
         {
-            return View();
-        }
-
-        // GET: Account/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Account/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            System.Diagnostics.Debug.WriteLine("Register");
+            if (!ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                return View(userModel);
             }
-            catch
+
+            var user = new User
             {
+                FirstName = userModel.FirstName,
+                LastName = userModel.LastName,
+                UserName = userModel.Email,
+                Email = userModel.Email,
+            };
+
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View(userModel);
+            }
+
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("index", "home");
+            }
+
+            await _userManager.AddToRoleAsync(user, "visitor");
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Login(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(UserLoginModel userModel, string returnUrl = null)
+        {
+            System.Diagnostics.Debug.WriteLine("Login");
+            if (!ModelState.IsValid)
+            {
+                return View(userModel);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
+            if (result.Succeeded)
+            {
+                return RedirectToLocal(returnUrl);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid Username and Password");
                 return View();
             }
         }
-
-        // GET: Account/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Account/Edit/5
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Logout()
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            System.Diagnostics.Debug.WriteLine("Logout");
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("index", "home");
         }
 
-        // GET: Account/Delete/5
-        public ActionResult Delete(int id)
+
+
+        private IActionResult RedirectToLocal(string returnUrl)
         {
-            return View();
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+
         }
 
-        // POST: Account/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
