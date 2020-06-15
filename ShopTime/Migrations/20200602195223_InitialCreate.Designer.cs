@@ -9,7 +9,7 @@ using ShopTime.Data;
 namespace ShopTime.Migrations
 {
     [DbContext(typeof(MvcBookingContext))]
-    [Migration("20200601203144_InitialCreate")]
+    [Migration("20200602195223_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,15 +47,15 @@ namespace ShopTime.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd903daf-2168-40b2-a9b4-0be7e2679e47",
-                            ConcurrencyStamp = "55268e4d-0648-4e94-a855-7cbe89921244",
+                            Id = "216d2d74-adbd-4502-8fb9-0bec19d5e33a",
+                            ConcurrencyStamp = "3976e63e-d316-4a1e-9e06-2e3dd1f0a835",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "7b4fc6cb-1d27-44d0-8ac4-9caf00152a6a",
-                            ConcurrencyStamp = "d9859eb8-800c-4b1b-814c-14001c51d737",
+                            Id = "17ecaf7b-4ece-4863-9a77-06ef8e95fc5a",
+                            ConcurrencyStamp = "f78c80a7-c5ad-460d-99f8-35521a91a30e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -178,17 +178,14 @@ namespace ShopTime.Migrations
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ShopId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Booking");
                 });
@@ -347,7 +344,7 @@ namespace ShopTime.Migrations
 
                     b.HasOne("ShopTime.Models.User", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

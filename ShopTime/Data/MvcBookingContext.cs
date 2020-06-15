@@ -17,11 +17,11 @@ namespace ShopTime.Data
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
 
         }
 

@@ -1,5 +1,6 @@
 ﻿@*@model IEnumerable<ShopTime.Models.Booking>*@
 @model ShopTime.Models.User
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -28,8 +29,8 @@
         </tr>
     </thead>
 
-    <!--<tbody>
-        @foreach (var item in Model.Bookings)
+    @*<tbody>
+    @foreach (var item in Model.Bookings)
         {
             <tr>
                 <td>
@@ -41,12 +42,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BookingTime)
                 </td>
-                <td>-->
-                    @*<a asp-action="Edit" asp-route-id="@Model.Bookings.Id">Edit</a> |
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Model.Bookings.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@Model.Bookings.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@Model.Bookings.Id">Delete</a>*@
-                <!--</td>
+                    <a asp-action="Delete" asp-route-id="@Model.Bookings.Id">Delete</a>
+                </td>
             </tr>
             }
-        </tbody>-->    
-</table>
+        </tbody>    
+</table>*@

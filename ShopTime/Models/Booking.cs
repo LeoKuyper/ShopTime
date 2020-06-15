@@ -10,11 +10,12 @@ namespace ShopTime.Models
     {
         public int Id { get; set; }
 
-        public User User { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }        
 
-        public Shop Shop { get; set; }
         public int ShopId { get; set; }
+        public Shop Shop { get; set; }
+        
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

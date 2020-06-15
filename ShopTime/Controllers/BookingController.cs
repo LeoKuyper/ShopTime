@@ -36,7 +36,8 @@ namespace ShopTime.Controllers
                 // Get the id of the current loggedin user
                 string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 User currentUser = await _context.User
-                    
+                    .Include(u => u.Bookings)
+                        .ThenInclude(ut => ut.Shop)                    
                     .FirstOrDefaultAsync(u => u.Id == id);
 
                 if (currentUser == null)
@@ -74,34 +75,38 @@ namespace ShopTime.Controllers
             return View(todo);
         }
 
-        // GET: Booking/Create
+        // GET: Todoes/Create
         public IActionResult Create()
         {
-            List<User> allUsers = _context.Users.ToList();
-            var selectAllUsers = allUsers.Select(x => new SelectListItem() { Text = x.FirstName, Value = x.Id, Selected = true });
-            // ViewBag.Name = "Cool Title";
-            ViewData["users"] = new MultiSelectList(selectAllUsers, "Value", "Text");
-            //var todo = new TodoViewModel();
-            //todo.UserIds = new List<string>();
             return View();
         }
 
-        // POST: Booking/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        // POST: Todoes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Title,Body")] Booking bookingModel) //Change todo to todoModel to make more sense
+        //{
+        //    // Make sure that the todo is related to the user on create
+        //    if (ModelState.IsValid)
+        //    {
+        //        // 1. Create a new Todo object
+        //        var booking = new Booking
+        //        {
+        //            // 2. Set values from (todoModel) to the new todo keys
+        //            Title = todoModel.Title,
+        //            Body = todoModel.Body,
+        //            // Set the current user to the Owner field of the todo, our DbContext will be responsible for assigning the userID to OwnerID
+        //            // Remember to import the userManager class to get access to the current user, use dependency injection for this
+        //            Owner = _userManager.GetUserAsync(User).Result
+        //        };
+        //        _context.Add(booking);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(bookingModel);
+        //}
 
         // GET: Booking/Edit/5
         public ActionResult Edit(int id)

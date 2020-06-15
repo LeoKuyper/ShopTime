@@ -177,8 +177,7 @@ namespace ShopTime.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId1 = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     ShopId = table.Column<int>(nullable: false),
                     BookingTime = table.Column<DateTime>(nullable: false),
                     BookingState = table.Column<string>(nullable: true)
@@ -193,8 +192,8 @@ namespace ShopTime.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Booking_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Booking_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -203,12 +202,12 @@ namespace ShopTime.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "bd903daf-2168-40b2-a9b4-0be7e2679e47", "55268e4d-0648-4e94-a855-7cbe89921244", "Visitor", "VISITOR" });
+                values: new object[] { "216d2d74-adbd-4502-8fb9-0bec19d5e33a", "3976e63e-d316-4a1e-9e06-2e3dd1f0a835", "Visitor", "VISITOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7b4fc6cb-1d27-44d0-8ac4-9caf00152a6a", "d9859eb8-800c-4b1b-814c-14001c51d737", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "17ecaf7b-4ece-4863-9a77-06ef8e95fc5a", "f78c80a7-c5ad-460d-99f8-35521a91a30e", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -253,9 +252,9 @@ namespace ShopTime.Migrations
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_UserId1",
+                name: "IX_Booking_UserId",
                 table: "Booking",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
