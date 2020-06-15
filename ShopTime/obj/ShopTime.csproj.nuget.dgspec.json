@@ -14,7 +14,7 @@
         "outputPath": "/Volumes/Data 1/LeoData/Git/ShopTime/ShopTime/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Volumes/Data 1/LeoData/.config/NuGet/NuGet.Config"
+          "/Volumes/Data 1/LeoData/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -45,6 +45,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.5, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ShopTime.Models;
 using ShopTime.Models.Configuration;
@@ -27,5 +27,6 @@ namespace ShopTime.Data
 
         public DbSet<Booking> Booking { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<ShopTime.Models.Shop> Shop { get; set; }
     }
 }
