@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShopTime.Data;
 using ShopTime.Models;
 
@@ -12,17 +15,38 @@ namespace ShopTime
 {
     public class ShopController : Controller
     {
+        private readonly ILogger<ShopController> _logger;
         private readonly MvcBookingContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ShopController(MvcBookingContext context)
+        public ShopController(ILogger<ShopController> logger, MvcBookingContext context, UserManager<User> userManager)
         {
+            _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Shop
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Shop.ToListAsync());
+            if (User.Identity.IsAuthenticated)
+            {
+                // Get the id of the current loggedin user
+                string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                User currentUser = await _context.User
+                    .Include(u => u.Bookings)
+                        .ThenInclude(ut => ut.Shop)
+                    .FirstOrDefaultAsync(u => u.Id == id);
+
+                if (currentUser == null)
+                {
+                    return NotFound();
+                }
+
+                return View(await _context.Shop.ToListAsync());
+            }
+
+            return View();
         }
 
         // GET: Shop/Details/5
