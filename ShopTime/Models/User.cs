@@ -12,6 +12,6 @@ namespace ShopTime.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public Booking Bookings { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
     }
 }

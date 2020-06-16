@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +11,8 @@ namespace ShopTime.Models
     {
         public int Id { get; set; }
 
-        public string UserId { get; set; }
-        public User User { get; set; }        
+        public string OwnerId { get; set; }
+        public User Owner { get; set; }
 
         public int ShopId { get; set; }
         public Shop Shop { get; set; }
@@ -23,6 +24,8 @@ namespace ShopTime.Models
 
         public string BookingState { get; set; }
 
+        [NotMapped]
+        public List<string> Shops { get; set; }
 
     }
 }

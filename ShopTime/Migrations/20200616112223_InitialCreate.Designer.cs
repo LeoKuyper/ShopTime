@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopTime.Data;
 
 namespace ShopTime.Migrations
 {
     [DbContext(typeof(MvcBookingContext))]
-    partial class MvcBookingContextModelSnapshot : ModelSnapshot
+    [Migration("20200616112223_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,15 +47,15 @@ namespace ShopTime.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ef88a34c-951d-43f8-8037-24ab2084ffea",
-                            ConcurrencyStamp = "afb4c453-2093-4acf-95e6-8a7bf2b05df8",
+                            Id = "c8a2a3e0-5fe7-498c-9db2-349cc61d9b1d",
+                            ConcurrencyStamp = "bf1bbacd-4154-40e7-8139-6096f1be845e",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "ebaab733-d752-4a61-995e-5e47071e9cab",
-                            ConcurrencyStamp = "7fc7cdf0-95fd-4380-851e-03e42ba6fef3",
+                            Id = "6e7dd5d4-8d15-422e-995f-a44e2da3d8e0",
+                            ConcurrencyStamp = "7d45a093-d83c-4bb1-9e18-548774ed73f3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

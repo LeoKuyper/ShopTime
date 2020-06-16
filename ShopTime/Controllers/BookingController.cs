@@ -81,32 +81,53 @@ namespace ShopTime.Controllers
             return View();
         }
 
-        // POST: Todoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //POST: Todoes/Create
+        //To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Title,Body")] Booking bookingModel) //Change todo to todoModel to make more sense
-        //{
-        //    // Make sure that the todo is related to the user on create
-        //    if (ModelState.IsValid)
-        //    {
-        //        // 1. Create a new Todo object
-        //        var booking = new Booking
-        //        {
-        //            // 2. Set values from (todoModel) to the new todo keys
-        //            Title = todoModel.Title,
-        //            Body = todoModel.Body,
-        //            // Set the current user to the Owner field of the todo, our DbContext will be responsible for assigning the userID to OwnerID
-        //            // Remember to import the userManager class to get access to the current user, use dependency injection for this
-        //            Owner = _userManager.GetUserAsync(User).Result
-        //        };
-        //        _context.Add(booking);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(bookingModel);
-        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking bookingModel) //Change todo to todoModel to make more sense
+        {
+            // Make sure that the todo is related to the user on create
+            if (ModelState.IsValid)
+            {
+                // 1. Create a new Todo object
+                var booking = new Booking
+                {
+                    Id = bookingModel.Id,
+                    ShopId = bookingModel.ShopId,
+                    BookingTime = bookingModel.BookingTime,
+                    BookingState = "Active",
+                    Owner = _userManager.GetUserAsync(User).Result
+                };
+
+                if(booking.Shops != null)
+                {
+                    _logger.LogInformation("Counting Shops");
+
+                    List<Shop> allShops = _context.Shop.Where(shop => bookingModel.Shops.Contains(shop.Name)).ToList();
+
+                    foreach (Shop shop in allShops)
+                    {
+                        _logger.LogInformation(shop.Name);
+
+                    }
+                }
+                else
+                {
+                    _logger.LogInformation("Not Counting Shops");
+                }
+
+                
+
+
+                _context.Add(booking);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(bookingModel);
+        }
 
         // GET: Booking/Edit/5
         public ActionResult Edit(int id)

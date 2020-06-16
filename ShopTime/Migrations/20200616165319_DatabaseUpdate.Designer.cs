@@ -9,14 +9,14 @@ using ShopTime.Data;
 namespace ShopTime.Migrations
 {
     [DbContext(typeof(MvcBookingContext))]
-    [Migration("20200602195223_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200616165319_DatabaseUpdate")]
+    partial class DatabaseUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.4")
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -47,15 +47,15 @@ namespace ShopTime.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "216d2d74-adbd-4502-8fb9-0bec19d5e33a",
-                            ConcurrencyStamp = "3976e63e-d316-4a1e-9e06-2e3dd1f0a835",
+                            Id = "ef88a34c-951d-43f8-8037-24ab2084ffea",
+                            ConcurrencyStamp = "afb4c453-2093-4acf-95e6-8a7bf2b05df8",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "17ecaf7b-4ece-4863-9a77-06ef8e95fc5a",
-                            ConcurrencyStamp = "f78c80a7-c5ad-460d-99f8-35521a91a30e",
+                            Id = "ebaab733-d752-4a61-995e-5e47071e9cab",
+                            ConcurrencyStamp = "7fc7cdf0-95fd-4380-851e-03e42ba6fef3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -175,17 +175,18 @@ namespace ShopTime.Migrations
                     b.Property<DateTime>("BookingTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ShopId");
+                    b.HasIndex("OwnerId")
+                        .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Booking");
                 });
@@ -336,15 +337,15 @@ namespace ShopTime.Migrations
 
             modelBuilder.Entity("ShopTime.Models.Booking", b =>
                 {
+                    b.HasOne("ShopTime.Models.User", "Owner")
+                        .WithOne("Bookings")
+                        .HasForeignKey("ShopTime.Models.Booking", "OwnerId");
+
                     b.HasOne("ShopTime.Models.Shop", "Shop")
                         .WithMany("Bookings")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ShopTime.Models.User", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
