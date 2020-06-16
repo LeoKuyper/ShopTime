@@ -31,6 +31,11 @@ namespace ShopTime
         {
             if (User.Identity.IsAuthenticated)
             {
+                List<Booking> allsBookings = _context.Booking.ToList();
+                var selectAllBookings = allsBookings.Select(x => new SelectListItem() { Text = x.ShopId.ToString(), Value = x.Id.ToString() });
+
+                ViewData["bookingCount"] = new MultiSelectList(selectAllBookings, "Value", "Text");
+
                 // Get the id of the current loggedin user
                 string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 User currentUser = await _context.User

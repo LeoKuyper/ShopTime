@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 using ShopTime.Data;
 using ShopTime.Models;
 
@@ -19,6 +20,8 @@ namespace ShopTime.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly MvcBookingContext _context;
         private readonly UserManager<User> _userManager;
+        DateTime localDate = DateTime.Now;
+        DateTime utcDate = DateTime.UtcNow;
 
         public BookingController(ILogger<HomeController> logger, MvcBookingContext context, UserManager<User> userManager)
         {
@@ -28,7 +31,7 @@ namespace ShopTime.Controllers
         }
 
         // GET: Booking
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking bookingModel)
         {
             // Test to see if the user is logged in
             if (User.Identity.IsAuthenticated)
@@ -45,13 +48,28 @@ namespace ShopTime.Controllers
                     return NotFound();
                 }
 
-                // Get all notes that belong to this user
-                //IEnumerable<Todo> todos = _context.Todo.Where(todo => todo.OwnerId == id).ToList();
+                //List<Booking> currentQueue = _context.Booking.Where(booking => bookingModel.Shops.Contains(booking.OwnerId)).ToList();
 
-                // return the view with the notes passed in
+
+                //_logger.LogInformation(currentQueue.ToString());
+
+
+                //if (bookingModel.BookingState == "Waiting")
+                //    {
+                //        if (bookingModel.Shop.ActiveCashiers <= bookingModel.Shop)
+                //}
+
+
                 return View(currentUser);
             }
-            //await _context.Todo.ToListAsync()
+
+
+
+            
+
+
+
+
             return View();
         }
 
@@ -75,19 +93,22 @@ namespace ShopTime.Controllers
             return View(todo);
         }
 
-        // GET: Todoes/Create
+
         public IActionResult Create()
         {
+            List<Shop> allShops = _context.Shop.ToList();
+            var selectAllShops = allShops.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = true });
+
+            ViewData["shops"] = new MultiSelectList(selectAllShops, "Value", "Text");
+
             return View();
         }
 
-        //POST: Todoes/Create
-        //To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking bookingModel) //Change todo to todoModel to make more sense
+        public async Task<IActionResult> Create([Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking bookingModel) 
         {
             // Make sure that the todo is related to the user on create
             if (ModelState.IsValid)
@@ -97,8 +118,8 @@ namespace ShopTime.Controllers
                 {
                     Id = bookingModel.Id,
                     ShopId = bookingModel.ShopId,
-                    BookingTime = bookingModel.BookingTime,
-                    BookingState = "Active",
+                    BookingTime = localDate,
+                    BookingState = "Waiting",
                     Owner = _userManager.GetUserAsync(User).Result
                 };
 
@@ -117,10 +138,7 @@ namespace ShopTime.Controllers
                 else
                 {
                     _logger.LogInformation("Not Counting Shops");
-                }
-
-                
-
+                }                            
 
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
@@ -153,26 +171,32 @@ namespace ShopTime.Controllers
         }
 
         // GET: Booking/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _context.Booking
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return View(booking);
         }
 
         // POST: Booking/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var booking = await _context.Booking.FindAsync(id);
+            _context.Booking.Remove(booking);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
