@@ -31,8 +31,12 @@ namespace ShopTime.Controllers
         }
 
         // GET: Booking
-        public async Task<IActionResult> Index([Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking bookingModel)
+        public async Task<IActionResult> Index()
         {
+
+            var booking = new Booking();
+            _logger.LogInformation(booking.Id.ToString());
+
             // Test to see if the user is logged in
             if (User.Identity.IsAuthenticated)
             {
@@ -47,26 +51,9 @@ namespace ShopTime.Controllers
                 {
                     return NotFound();
                 }
-
-                //List<Booking> currentQueue = _context.Booking.Where(booking => bookingModel.Shops.Contains(booking.OwnerId)).ToList();
-
-
-                //_logger.LogInformation(currentQueue.ToString());
-
-
-                //if (bookingModel.BookingState == "Waiting")
-                //    {
-                //        if (bookingModel.Shop.ActiveCashiers <= bookingModel.Shop)
-                //}
-
-
                 return View(currentUser);
             }
-
-
-
             
-
 
 
 
