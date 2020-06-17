@@ -134,27 +134,94 @@ namespace ShopTime.Controllers
             return View(bookingModel);
         }
 
+        // GET: Users/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _context.Booking.FindAsync(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking booking)
+        {
+            if (id != booking.Id.ToString())
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(booking);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                   
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(booking);
+        }
+
         // GET: Booking/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult UpdateEnterShop(int id)
         {
             return View();
         }
 
-        // POST: Booking/Edit/5
+        // POST: Booking/UpdateShop/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> UpdateEnterShop(int id, [Bind("BookingState")] Booking bookingModel)
         {
-            try
+            if (id != bookingModel.Id)
             {
-                // TODO: Add update logic here
+                return NotFound();
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    //Booking newBooking = new Booking
+                    //{
+                    //    BookingState = "In Shop",
+                    //};
+                    _logger.LogInformation(id.ToString() + "ID TEst");
+                    //var booking = await _context.Booking
+                    //.FirstOrDefaultAsync(m => m.Id == id);
+
+                    var booking = new Booking { Id = 15};
+                    booking.BookingState = "In Shop";
+                    _context.Entry(booking).Property("BookingState").IsModified = true;
+                    _logger.LogInformation(booking.BookingState);
+
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    
+                }
+                //return RedirectToAction(nameof(Index));
             }
+            return RedirectToAction(nameof(Index));
+            //return View(bookingModel);
         }
 
         // GET: Booking/Delete/5
