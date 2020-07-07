@@ -5,75 +5,77 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+    <div class="container">
+        <h1>Your booking</h1>
 
-<p>
-       <a asp-action="Create">Create New</a>    
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            @*<th>
-                Id
-            </th>*@
-            <th>
-                Name
-            </th>
-            @*<th>
-                ShopId
-            </th>*@
-            <th>
-                Booking Time
-            </th>
-            <th>
-                Active Cashier
-            </th>
-            <th>
-                Booking State
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    @*<th>
+                        Id
+                    </th>*@
+                    <th>
+                        Name
+                    </th>
+                    @*<th>
+                        ShopId
+                    </th>*@
+                    <th>
+                        Booking Time
+                    </th>
+                    <th>
+                        Active Cashier
+                    </th>
+                    <th>
+                        Booking State
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
 
-    <tbody>
-    @foreach (var item in Model.Bookings)
-        {
-        <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Shop.Name)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.ShopId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shop.ActiveCashiers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingState)
-            </td>
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> *@
-
-
-                <form asp-action="UpdateEnterShop" asp-for="@item.Id" asp-route-id="1">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="@item.Id" asp-action="UpdateEnterShop"/>
-                    <div class="form-group">
-                        <input type="submit" value="Go into Shop" asp-for="@item.Id"  asp-route-id="1" class="btn btn-primary" />
-                    </div>
-                </form>
+            <tbody>
+                @foreach (var item in Model.Bookings)
+                {
+                    <tr>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Shop.Name)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.ShopId)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Shop.ActiveCashiers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingState)
+                        </td>
+                        <td>
+                            @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> *@
 
 
-                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> *@
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-            }
-        </tbody>    
-</table>
+                            <form asp-action="UpdateEnterShop" asp-for="@item.Id" asp-route-id="1">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="@item.Id" asp-action="UpdateEnterShop" />
+                                <div class="form-group">
+                                    <input type="submit" value="Go into Shop" asp-for="@item.Id" asp-route-id="1" class="btn btn-primary" />
+                                </div>
+                            </form>
+
+
+                            @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> *@
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
