@@ -8484,19 +8484,19 @@
     ]
   },
   "packageFolders": {
-    "/Volumes/MacData/UserData/.nuget/packages/": {}
+    "/Users/leokuyper/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Volumes/MacData/Git/ShopTime/ShopTime/ShopTime.csproj",
+      "projectUniqueName": "/Volumes/Dev/Github/ShopTime/ShopTime/ShopTime.csproj",
       "projectName": "ShopTime",
-      "projectPath": "/Volumes/MacData/Git/ShopTime/ShopTime/ShopTime.csproj",
-      "packagesPath": "/Volumes/MacData/UserData/.nuget/packages/",
-      "outputPath": "/Volumes/MacData/Git/ShopTime/ShopTime/obj/",
+      "projectPath": "/Volumes/Dev/Github/ShopTime/ShopTime/ShopTime.csproj",
+      "packagesPath": "/Users/leokuyper/.nuget/packages/",
+      "outputPath": "/Volumes/Dev/Github/ShopTime/ShopTime/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Volumes/MacData/UserData/.config/NuGet/NuGet.Config"
+        "/Users/leokuyper/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -8506,6 +8506,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -8517,6 +8518,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
@@ -8569,7 +8571,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -12,6 +12,7 @@ namespace ShopTime.Models
         public string Description { get; set; }
         public string Location { get; set; }
         public int ActiveCashiers { get; set; }
+        public int MaxCapacity { get; set; }
 
         public ICollection<Booking> Bookings { get; set; }
 

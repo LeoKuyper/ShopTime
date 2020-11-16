@@ -9,8 +9,8 @@ using ShopTime.Data;
 namespace ShopTime.Migrations
 {
     [DbContext(typeof(MvcBookingContext))]
-    [Migration("20200616165319_DatabaseUpdate")]
-    partial class DatabaseUpdate
+    [Migration("20201113133437_fix")]
+    partial class fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,15 +47,15 @@ namespace ShopTime.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ef88a34c-951d-43f8-8037-24ab2084ffea",
-                            ConcurrencyStamp = "afb4c453-2093-4acf-95e6-8a7bf2b05df8",
+                            Id = "a98a9dd9-2bcc-44d8-8f2c-2ec40e654d2d",
+                            ConcurrencyStamp = "b231d10d-450e-4534-8b30-dc2b5e67c160",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "ebaab733-d752-4a61-995e-5e47071e9cab",
-                            ConcurrencyStamp = "7fc7cdf0-95fd-4380-851e-03e42ba6fef3",
+                            Id = "cc3a8601-0156-4f34-98e9-80dc70d8b1d7",
+                            ConcurrencyStamp = "c4d10f94-ab2c-4b15-81d7-c29f0d11538f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -183,8 +183,7 @@ namespace ShopTime.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId")
-                        .IsUnique();
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("ShopId");
 
@@ -205,6 +204,9 @@ namespace ShopTime.Migrations
 
                     b.Property<string>("Location")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -338,8 +340,8 @@ namespace ShopTime.Migrations
             modelBuilder.Entity("ShopTime.Models.Booking", b =>
                 {
                     b.HasOne("ShopTime.Models.User", "Owner")
-                        .WithOne("Bookings")
-                        .HasForeignKey("ShopTime.Models.Booking", "OwnerId");
+                        .WithMany("Bookings")
+                        .HasForeignKey("OwnerId");
 
                     b.HasOne("ShopTime.Models.Shop", "Shop")
                         .WithMany("Bookings")

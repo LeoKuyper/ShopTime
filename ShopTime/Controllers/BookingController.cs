@@ -95,18 +95,18 @@ namespace ShopTime.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking bookingModel) 
+        public async Task<IActionResult> Create([Bind("Id,OwnerID,ShopId,BookingTime,BookingState")] Booking bookingModel) 
         {
-            // Make sure that the todo is related to the user on create
+            // Make sure that the Booking is related to the user on create
             if (ModelState.IsValid)
             {
-                // 1. Create a new Todo object
+                // 1. Create a new Booking object
                 var booking = new Booking
                 {
                     Id = bookingModel.Id,
                     ShopId = bookingModel.ShopId,
                     BookingTime = localDate,
-                    BookingState = "Waiting",
+                    BookingState = "YouCanEnter",
                     Owner = _userManager.GetUserAsync(User).Result
                 };
 
@@ -135,13 +135,8 @@ namespace ShopTime.Controllers
         }
 
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var booking = await _context.Booking.FindAsync(id);
             if (booking == null)
             {
@@ -152,9 +147,9 @@ namespace ShopTime.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserId,ShopId,BookingTime,BookingState")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OwnerId,ShopId,BookingTime,BookingState")] Booking booking)
         {
-            if (id != booking.Id.ToString())
+            if (id != booking.Id)
             {
                 return NotFound();
             }
@@ -178,15 +173,19 @@ namespace ShopTime.Controllers
         // GET: Booking/Edit/5
         public ActionResult UpdateEnterShop(int id)
         {
+            _logger.LogInformation("Enter shop GET");
             return View();
         }
 
         // POST: Booking/UpdateShop/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateEnterShop(int id, [Bind("BookingState")] Booking bookingModel)
+        public async Task<IActionResult> UpdateEnterShop(int id, [Bind("Id,OwnerId,ShopId,BookingTime,BookingState")] Booking bookingOld)
         {
-            if (id != bookingModel.Id)
+            _logger.LogInformation("Enter shop POST");
+            _logger.LogInformation(id.ToString());
+
+            if (id != bookingOld.Id)
             {
                 return NotFound();
             }
@@ -195,33 +194,33 @@ namespace ShopTime.Controllers
             {
                 try
                 {
-                    //Booking newBooking = new Booking
-                    //{
-                    //    BookingState = "In Shop",
-                    //};
-                    _logger.LogInformation(id.ToString() + "ID TEst");
-                    //var booking = await _context.Booking
-                    //.FirstOrDefaultAsync(m => m.Id == id);
+                    _logger.LogInformation("POST update details");
+                    _logger.LogInformation(bookingOld.Id.ToString());
+                    _logger.LogInformation(bookingOld.OwnerId);
+                    _logger.LogInformation(bookingOld.ShopId.ToString());
 
-                    var booking = new Booking { Id = 15};
-                    booking.BookingState = "In Shop";
-                    _context.Entry(booking).Property("BookingState").IsModified = true;
-                    _logger.LogInformation(booking.BookingState);
-
+                    _context.Booking.Remove(bookingOld);
                     await _context.SaveChangesAsync();
-
-                    return RedirectToAction(nameof(Index));
-
+                                       
 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    
+                    if (!BookingExists(bookingOld.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
-                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return View(bookingOld);
+            //return RedirectToAction(nameof(Index));
             //return View(bookingModel);
+            //return View();
         }
 
         // GET: Booking/Delete/5
@@ -238,7 +237,7 @@ namespace ShopTime.Controllers
             {
                 return NotFound();
             }
-
+            _logger.LogInformation("Delete");
             return View(booking);
         }
 
@@ -247,10 +246,16 @@ namespace ShopTime.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            _logger.LogInformation( "Delete");
             var booking = await _context.Booking.FindAsync(id);
             _context.Booking.Remove(booking);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool BookingExists(int id)
+        {
+            return _context.Booking.Any(e => e.Id == id);
         }
     }
 }

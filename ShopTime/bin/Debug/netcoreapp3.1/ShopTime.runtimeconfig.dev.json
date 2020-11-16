@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/Volumes/MacData/UserData/.dotnet/store/|arch|/|tfm|",
-      "/Volumes/MacData/UserData/.nuget/packages"
+      "/Users/leokuyper/.dotnet/store/|arch|/|tfm|",
+      "/Users/leokuyper/.nuget/packages"
     ]
   }
 }

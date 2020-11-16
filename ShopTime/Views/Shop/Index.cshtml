@@ -5,7 +5,20 @@
 
 <div class="container">
     <p>
-        <a asp-action="Create a new shop">Create New</a>
+        @{int p = 0;}
+        @foreach (var booking in ViewBag.bookingCount)
+        {
+            
+                p++;
+            
+
+
+        }
+        <span>We currently have @p bookings running </span>
+    </p>
+
+    <p>
+        <a asp-action="Create">Create New</a>
     </p>
     <table class="table">
         <thead>
@@ -22,47 +35,52 @@
                 <th>
                     @Html.DisplayNameFor(model => model.ActiveCashiers)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaxCapacity)
+                </th>
                 <td>
                     @Html.DisplayName("CurrentQueue")
                 </td>
+
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Location)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ActiveCashiers)
-                    </td>
-                    <td>
-                        @{int i = 0;}
-                        @foreach (var booking in ViewBag.bookingCount)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActiveCashiers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxCapacity)
+                </td>
+                <td>
+                    @{int i = 0;}
+                    @foreach (var booking in ViewBag.bookingCount)
+                    {
+                        if (booking.Text! == item.Id.ToString()!)
                         {
-                            if (booking.Text! == item.Id.ToString()!)
-                            {
-                                i++;
-                            }
-
-
+                            i++;
                         }
-                        <span>@i</span>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+                    }
+                    <span>@i</span>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
 }
         </tbody>
     </table>

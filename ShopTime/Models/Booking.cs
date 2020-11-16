@@ -19,7 +19,7 @@ namespace ShopTime.Models
         
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-hh-mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BookingTime { get; set; }
 
         public string BookingState { get; set; }

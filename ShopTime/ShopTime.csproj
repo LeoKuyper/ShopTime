@@ -24,6 +24,7 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\css\" />
     <Folder Include="wwwroot\img\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

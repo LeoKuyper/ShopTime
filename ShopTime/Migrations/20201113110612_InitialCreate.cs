@@ -58,7 +58,8 @@ namespace ShopTime.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),
-                    ActiveCashiers = table.Column<int>(nullable: false)
+                    ActiveCashiers = table.Column<int>(nullable: false),
+                    MaxCapacity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,12 +203,12 @@ namespace ShopTime.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c8a2a3e0-5fe7-498c-9db2-349cc61d9b1d", "bf1bbacd-4154-40e7-8139-6096f1be845e", "Visitor", "VISITOR" });
+                values: new object[] { "2f5b5a3d-54ae-4071-b153-13223626e731", "7fac18d0-bb8d-40af-b5a0-1fb9d3a6cced", "Visitor", "VISITOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "6e7dd5d4-8d15-422e-995f-a44e2da3d8e0", "7d45a093-d83c-4bb1-9e18-548774ed73f3", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "a24a6d09-46df-4d24-a86e-261f93f6d0e4", "49b3a086-b8a4-4442-8caf-9b190d96ce86", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -249,8 +250,7 @@ namespace ShopTime.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_OwnerId",
                 table: "Booking",
-                column: "OwnerId",
-                unique: true);
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_ShopId",

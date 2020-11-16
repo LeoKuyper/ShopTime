@@ -83,7 +83,7 @@ namespace ShopTime
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Location,ActiveCashiers")] Shop shop)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Location,ActiveCashiers,MaxCapacity")] Shop shop)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace ShopTime
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Location,ActiveCashiers")] Shop shop)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Location,ActiveCashiers,MaxCapacity")] Shop shop)
         {
             if (id != shop.Id)
             {
